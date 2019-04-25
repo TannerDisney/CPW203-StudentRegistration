@@ -39,7 +39,25 @@ function getStudent():Student
     return fetchStudent;
 }
 
-function displayStudent(student:Student):void
+function displayStudent(student:Student)
 {
-    console.log(student.firstName + " " + student.lastName);
+    // console.log(student.firstName + " " + student.lastName);
+    // <li> </li>
+    let studentLI:HTMLLIElement = document.createElement("li");
+    // <li>J. Doe</li>
+    studentLI.innerText = student.firstName + " " + student.lastName;
+
+    studentLI.onclick = function()
+    {
+        let agree = confirm("Are you sure you want delete?");
+        if(agree)
+        {
+            let currItem = <HTMLLIElement>this;
+            currItem.remove();
+        }
+    }
+    
+    //getting <ul> and appending the new <li>
+    let list = document.querySelector("#roster > ul");
+    list.appendChild(studentLI);
 }
