@@ -25,8 +25,29 @@ window.onload = function()
 
 function registerStudent()
 {
-    let nextStudent:Student = getStudent();
-    displayStudent(nextStudent);
+    if(isValid())
+    {
+        let nextStudent:Student = getStudent();
+        displayStudent(nextStudent);
+    }
+}
+
+function isValid():boolean
+{
+    let reqElems = document.querySelectorAll("main > input[data-required]");
+    let valid = true;
+    for (let i = 0; i < reqElems.length; i++) 
+    {
+        let currInput = <HTMLInputElement>reqElems[i];
+        if(currInput.value.trim() == "")
+        {
+            let span = currInput.nextElementSibling;
+            let errMsg = span.getAttribute("data-msg");
+            span.innerHTML = errMsg;
+            valid = false;
+        }
+    }
+    return valid;
 }
 
 function getStudent():Student
